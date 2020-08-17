@@ -6,8 +6,8 @@ class App extends React.Component {
     return (
       <div className="App">
         <h1>APP COMPONENT HERE!!!!</h1>
-        <button className="btn btn-info">
-          <i className="fab fa-react"></i> Btn Here <i className="fab fa-react"></i>
+        <button className="btn btn-primary">
+          <i className="fab fa-pinterest"></i> Btn Here <i className="fab fa-pinterest"></i>
         </button>
       </div>
     );
