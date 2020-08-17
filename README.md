@@ -1,3 +1,3 @@
-# React Setup
+# React Pinterst
 
-First try at getting a react project setup!!!
+Using React + Firebase to make a Pinterest clone!
