@@ -2,10 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Board from '../Board/Board';
+import BoardForm from '../BoardForm/BoardForm';
 
 import authData from '../../helpers/data/authData';
 import boardsData from '../../helpers/data/boardsData';
 import smashData from '../../helpers/data/smashData';
+
+// create board
+// BoardForm component √
+// show BoardForm on click of some button in here √
+// need a button in here √
+// Finish out form, and figure out inputs?
+// on submit of form: save to firebase, make sure board shows up
 
 class BoardContainer extends React.Component {
   static propTypes = {
@@ -14,6 +22,7 @@ class BoardContainer extends React.Component {
 
   state = {
     boards: [],
+    formOpen: false,
   }
 
   getBoards = () => {
@@ -32,15 +41,28 @@ class BoardContainer extends React.Component {
       .catch((err) => console.error(err));
   }
 
+  createBoard = (newBoard) => {
+    boardsData.createBoard(newBoard)
+      .then(() => {
+        this.getBoards();
+        this.setState({ formOpen: false });
+      })
+      .catch((err) => console.error('Create Board Broke', err));
+  }
+
   render() {
-    const { boards } = this.state;
+    const { boards, formOpen } = this.state;
     const { setSingleBoard } = this.props;
 
     const boardCard = boards.map((board) => <Board key={board.id} board={board} setSingleBoard={setSingleBoard} deleteBoard={this.deleteBoard}/>);
 
     return (
-      <div className="card-columns">
-        {boardCard}
+      <div>
+        <button className="btn btn-warning" onClick={() => { this.setState({ formOpen: !formOpen }); }}><i className="far fa-plus-square"></i></button>
+        { formOpen ? <BoardForm createBoard={this.createBoard}/> : '' }
+        <div className="card-columns">
+          {boardCard}
+        </div>
       </div>
     );
   }
