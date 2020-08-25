@@ -9,9 +9,10 @@ import boardsData from '../../helpers/data/boardsData';
 import smashData from '../../helpers/data/smashData';
 
 // create board
-// BoardForm component
-// show BoardForm on click of some button in here
-  // need a button in here
+// BoardForm component √
+// show BoardForm on click of some button in here √
+// need a button in here √
+// Finish out form, and figure out inputs?
 // on submit of form: save to firebase, make sure board shows up
 
 class BoardContainer extends React.Component {
