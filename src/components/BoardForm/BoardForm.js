@@ -3,12 +3,6 @@ import PropTypes from 'prop-types';
 
 import authData from '../../helpers/data/authData';
 
-// newBoard requires:
-// description
-// name
-// faClassName
-// uid (current user)
-
 class BoardForm extends React.Component {
   static propTypes = {
     createBoard: PropTypes.func.isRequired,

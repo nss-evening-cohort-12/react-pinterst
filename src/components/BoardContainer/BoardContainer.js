@@ -8,13 +8,6 @@ import authData from '../../helpers/data/authData';
 import boardsData from '../../helpers/data/boardsData';
 import smashData from '../../helpers/data/smashData';
 
-// create board
-// BoardForm component √
-// show BoardForm on click of some button in here √
-// need a button in here √
-// Finish out form, and figure out inputs?
-// on submit of form: save to firebase, make sure board shows up
-
 class BoardContainer extends React.Component {
   static propTypes = {
     setSingleBoard: PropTypes.func.isRequired,
@@ -58,8 +51,10 @@ class BoardContainer extends React.Component {
 
     return (
       <div>
-        <button className="btn btn-warning" onClick={() => { this.setState({ formOpen: !formOpen }); }}><i className="far fa-plus-square"></i></button>
-        { formOpen ? <BoardForm createBoard={this.createBoard}/> : '' }
+        <div className="mb-3">
+          <button className="btn btn-warning" onClick={() => { this.setState({ formOpen: !formOpen }); }}><i className={formOpen ? 'far fa-times-circle' : 'far fa-plus-square'}></i></button>
+          {formOpen ? <BoardForm createBoard={this.createBoard} /> : ''}
+        </div>
         <div className="card-columns">
           {boardCard}
         </div>
