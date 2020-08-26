@@ -49,7 +49,7 @@ class BoardContainer extends React.Component {
   }
 
   render() {
-    const { boards, formOpen } = this.state;
+    const { boards, formOpen, editBoard } = this.state;
     const { setSingleBoard } = this.props;
 
     const boardCard = boards.map((board) => <Board key={board.id} board={board} setSingleBoard={setSingleBoard} deleteBoard={this.deleteBoard} editABoard={this.editABoard}/>);
@@ -58,7 +58,7 @@ class BoardContainer extends React.Component {
       <div>
         <div className="mb-3">
           <button className="btn btn-warning" onClick={() => { this.setState({ formOpen: !formOpen }); }}><i className={formOpen ? 'far fa-times-circle' : 'far fa-plus-square'}></i></button>
-          {formOpen ? <BoardForm createBoard={this.createBoard} /> : ''}
+          {formOpen ? <BoardForm createBoard={this.createBoard} boardThatIAmEditing={editBoard} /> : ''}
         </div>
         <div className="card-columns">
           {boardCard}
