@@ -8,6 +8,7 @@ class BoardForm extends React.Component {
     createBoard: PropTypes.func.isRequired,
     updateBoard: PropTypes.func.isRequired,
     boardThatIAmEditing: PropTypes.object.isRequired,
+    closeForm: PropTypes.func.isRequired,
   }
 
   state = {
@@ -25,6 +26,20 @@ class BoardForm extends React.Component {
         description: boardThatIAmEditing.description,
         faClassName: boardThatIAmEditing.faClassName,
         isEditing: true,
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    const prevBoard = prevProps.boardThatIAmEditing;
+    const incomingBoard = this.props.boardThatIAmEditing;
+    if (prevBoard.name !== incomingBoard.name) {
+      this.setState({
+        description: incomingBoard.description || '',
+        name: incomingBoard.name || '',
+        faClassName: incomingBoard.faClassName || '',
+        // eslint-disable-next-line no-unneeded-ternary
+        isEditing: incomingBoard.name ? true : false,
       });
     }
   }
@@ -74,6 +89,11 @@ class BoardForm extends React.Component {
     updateBoard(boardThatIAmEditing.id, myBoardWithChanges);
   }
 
+  closeFormEvent = (e) => {
+    e.preventDefault();
+    this.props.closeForm();
+  };
+
   render() {
     const {
       description,
@@ -84,6 +104,7 @@ class BoardForm extends React.Component {
 
     return (
       <form className="col-6 offset-3">
+        <button className="btn btn-danger" onClick={this.closeFormEvent}>CLOSE FORM</button>
         <div className="form-group">
           <label htmlFor="boardName">Board Name</label>
           <input
