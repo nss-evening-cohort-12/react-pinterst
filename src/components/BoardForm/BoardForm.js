@@ -6,6 +6,7 @@ import authData from '../../helpers/data/authData';
 class BoardForm extends React.Component {
   static propTypes = {
     createBoard: PropTypes.func.isRequired,
+    updateBoard: PropTypes.func.isRequired,
     boardThatIAmEditing: PropTypes.object.isRequired,
   }
 
@@ -58,6 +59,21 @@ class BoardForm extends React.Component {
     createBoard(newBoard);
   }
 
+  editBoardEvent = (e) => {
+    e.preventDefault();
+    const { name, description, faClassName } = this.state;
+    const { updateBoard, boardThatIAmEditing } = this.props;
+
+    const myBoardWithChanges = {
+      name,
+      description,
+      faClassName,
+      uid: authData.getUid(),
+    };
+
+    updateBoard(boardThatIAmEditing.id, myBoardWithChanges);
+  }
+
   render() {
     const {
       description,
@@ -103,7 +119,7 @@ class BoardForm extends React.Component {
         </div>
         {
           isEditing
-            ? <button className="btn btn-light">Edit Board</button>
+            ? <button className="btn btn-light" onClick={this.editBoardEvent}>Edit Board</button>
             : <button className="btn btn-dark" onClick={this.saveBoardEvent}>Save Board</button>
         }
       </form>
