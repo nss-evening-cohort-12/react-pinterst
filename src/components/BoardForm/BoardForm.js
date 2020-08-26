@@ -30,6 +30,20 @@ class BoardForm extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    const prevBoard = prevProps.boardThatIAmEditing;
+    const incomingBoard = this.props.boardThatIAmEditing;
+    if (prevBoard.name !== incomingBoard.name) {
+      this.setState({
+        description: incomingBoard.description || '',
+        name: incomingBoard.name || '',
+        faClassName: incomingBoard.faClassName || '',
+        // eslint-disable-next-line no-unneeded-ternary
+        isEditing: incomingBoard.name ? true : false,
+      });
+    }
+  }
+
   changeNameEvent = (e) => {
     e.preventDefault();
     this.setState({ name: e.target.value });
