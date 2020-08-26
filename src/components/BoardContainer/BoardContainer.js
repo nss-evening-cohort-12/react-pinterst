@@ -57,6 +57,10 @@ class BoardContainer extends React.Component {
       .catch((err) => console.error('Update Board Borked', err));
   }
 
+  closeForm = () => {
+    this.setState({ formOpen: false });
+  }
+
   render() {
     const { boards, formOpen, editBoard } = this.state;
     const { setSingleBoard } = this.props;
@@ -66,8 +70,8 @@ class BoardContainer extends React.Component {
     return (
       <div>
         <div className="mb-3">
-          <button className="btn btn-warning" onClick={() => { this.setState({ formOpen: !formOpen }); }}><i className={formOpen ? 'far fa-times-circle' : 'far fa-plus-square'}></i></button>
-          {formOpen ? <BoardForm createBoard={this.createBoard} boardThatIAmEditing={editBoard} updateBoard={this.updateBoard}/> : ''}
+          {!formOpen ? <button className="btn btn-warning" onClick={() => { this.setState({ formOpen: true, editBoard: {} }); }}><i className='far fa-plus-square'></i></button> : '' }
+          {formOpen ? <BoardForm createBoard={this.createBoard} boardThatIAmEditing={editBoard} updateBoard={this.updateBoard} closeForm={this.closeForm}/> : ''}
         </div>
         <div className="card-columns">
           {boardCard}
